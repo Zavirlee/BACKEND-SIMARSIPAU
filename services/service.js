@@ -25,7 +25,7 @@ const login = async (username, password) => {
             user.token = token;
 
             // Set cookie here if needed
-            // cookie.set('token', token);
+            cookie.set('token', token);
 
             return user;
         }
@@ -53,6 +53,23 @@ const home = async () => {
     }
     
 
+}
+
+const terbaru = async () => {
+    try {
+        const query = `SELECT * FROM ARCHIVE GROUP BY archive_timestamp DESC`;
+        const result = await databaseQuery(query);
+
+        if(!result.length){
+            throw new Error('Pemanggilan Arsip Gagal');
+        } else {
+            const data = result;
+
+            return data;
+        }
+    } catch (error){
+        return error
+    }
 }
 
 const add_archive = async (archive_code, archive_catalog_id, archive_title, archive_serial_number, archive_release_date, archive_file_number, archive_condition_id, archive_type_id, archive_class_id, archive_agency, user_id, archive_loc_building_id, archive_loc_room_id, archive_loc_rollopack_id, archive_loc_cabinet, archive_loc_rack, archive_loc_box, archive_loc_cover) => {
@@ -167,35 +184,37 @@ const update_user = async (username, options) => {
 
 const delete_user = async (username, user_id, password) => {
     try {
-        const queryCheck = 'SELECT password FROM user where user_id = ? ';
-        const resultCheck = await databaseQuery(queryCheck, [user_id])
+        const queryDelete = 'DELETE FROM user WHERE username= ?';
+        const resultDelete = await databaseQuery(queryDelete, [username]);
 
-        const check = await bcrypt.compare(password, resultCheck[0].password);
-
-        if (!check) {
-            throw new Error('Password Salah')
+        if (resultDelete.affectedRows === 1) {
+            return ('User berhasil dihapus');
         } else {
-            const queryDelete = 'DELETE FROM user WHERE username= ?';
-            const resultDelete = await databaseQuery(queryDelete, [username]);
-
-            if (resultDelete.affectedRows === 1) {
-                return ('User berhasil dihapus');
-            } else {
-                throw new Error('Gagal Menghapus User')
-            }
-
-        } 
+            throw new Error('Gagal Menghapus User')
+        }
     } catch (error) {
         return error;
+    }
+}
+
+const verify = async (verified) => {
+    try {
+        const query = `SELECT * FROM user WHERE user_id = ?`;
+        const result = await databaseQuery(query, [verified])
+        return result[0]
+    } catch (error) {
+        return error
     }
 }
 
 module.exports = {
     login,
     home,
+    terbaru,
     add_archive,
     read_user,
     update_user,
     create_user,
-    delete_user
+    delete_user,
+    verify
 }

@@ -26,6 +26,18 @@ const home = async (req, res) => {
     }    
 }
 
+const terbaru = async (req, res) => {
+    try {
+        const result = await Services.terbaru()
+        if (result instanceof Error) {
+            throw new Error(result);
+        }
+        res.status(responseHelper.status.success).json(result);
+    } catch (error) {
+        res.status(responseHelper.status.error).json(error.message);
+    }    
+}
+
 const add_archive = async (req, res) => {
     try {
 
@@ -127,7 +139,7 @@ const delete_user = async (req, res) => {
 
 const logout = async (req, res) => {
         try {
-            res.clearCookie('token').status(responseHelper.status.success).send("Berhasil Logout");
+            res.clearCookie("token").status(responseHelper.status.success).send("Berhasil Logout");
         } catch (error) {
             res.status(responseHelper.status.error).json(error.message);
         }
@@ -151,6 +163,7 @@ const verify = async (req, res, next) => {
 module.exports = {
     login,
     home,
+    terbaru,
     add_archive,
     create_user,
     read_user,
