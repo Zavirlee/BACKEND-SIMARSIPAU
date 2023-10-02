@@ -4,10 +4,11 @@ const Cookies = require('universal-cookie');
 
 const Auth = {
   verifyToken(req, res, next) {
+
     const cookies = new Cookies(req.headers.cookie);
     // const token = cookies.get('token')
 
-    const token = req.body.token || cookies.get('token')
+    const token = req.body.token
 
     console.log(token)
     if (token) {
