@@ -42,6 +42,18 @@ const dashboardData = async (req, res) => {
   }
 };
 
+const bardata = async (req, res) => {
+  try {
+    const result = await Services.bardata();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
 const catalogData = async (req, res) => {
   try {
     const result = await Services.catalogData();
@@ -70,6 +82,18 @@ const archive_by_category = async (req, res) => {
   try {
     const { archive_catalog_id } = req.body;
     const result = await Services.archive_by_category(archive_catalog_id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const archive_by_date = async (req, res) => {
+  try {
+    const result = await Services.archive_by_date();
     if (result instanceof Error) {
       throw new Error(result);
     }
@@ -155,6 +179,8 @@ const archiveDetail = async (req, res) => {
 const update_archive = async (req, res) => {
   try {
     const user_id = req.verified;
+
+    console.log(user_id);
 
     console.log("data:", req.body.data);
 
@@ -277,6 +303,12 @@ const delete_user = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
+    const { user_id } = req.body;
+
+    const result = await Services.logout(user_id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
     res
       .clearCookie("token")
       .status(responseHelper.status.success)
@@ -299,6 +331,450 @@ const verify = async (req, res, next) => {
   }
 };
 
+const masterData = async (req, res) => {
+  try {
+    const result = await Services.masterData();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const catalog = async (req, res) => {
+  try {
+    const result = await Services.catalog();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const condition = async (req, res) => {
+  try {
+    const result = await Services.condition();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+const type = async (req, res) => {
+  try {
+    const result = await Services.type();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const classArchive = async (req, res) => {
+  try {
+    const result = await Services.classArchive();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const building = async (req, res) => {
+  try {
+    const result = await Services.building();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const room = async (req, res) => {
+  try {
+    const result = await Services.room();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const rollopack = async (req, res) => {
+  try {
+    const result = await Services.rollopack();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const cabinet = async (req, res) => {
+  try {
+    const result = await Services.cabinet();
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertCatalog = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertCatalog(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertCondition = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertCondition(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertType = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertType(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertClassArchive = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertClassArchive(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertBuilding = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    console.log(req.body.data);
+    const result = await Services.insertBuilding(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertRoom = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertRoom(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertRollOPack = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertRollOPack(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const insertCabinet = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.insertCabinet(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteCondition = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteCondition(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteType = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteType(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteClassArchive = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteClassArchive(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteBuilding = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteBuilding(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteRoom = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteRoom(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteRollOPack = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteRollOPack(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteCabinet = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteCabinet(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const deleteCatalog = async (req, res) => {
+  try {
+    const { label } = req.body.data;
+    const result = await Services.deleteCatalog(label);
+
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateCatalog = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateCatalog(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateCondition = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateCondition(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateType = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateType(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateClassArchive = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateClassArchive(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateBuilding = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateBuilding(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateRoom = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateRoom(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateRollOPack = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateRollOPack(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
+const updateCabinet = async (req, res) => {
+  try {
+    const { label, id } = req.body.data;
+    const result = await Services.updateCabinet(label, id);
+    if (result instanceof Error) {
+      throw new Error(result);
+    }
+
+    res.status(responseHelper.status.success).json(result);
+  } catch (error) {
+    res.status(responseHelper.status.error).json(error.message);
+  }
+};
+
 module.exports = {
   login,
   home,
@@ -306,6 +782,8 @@ module.exports = {
   catalogData,
   terbaru,
   archive_by_category,
+  archive_by_date,
+  bardata,
   add_archive,
   archiveDetail,
   update_archive,
@@ -316,4 +794,37 @@ module.exports = {
   delete_user,
   logout,
   verify,
+  masterData,
+  catalog,
+  condition,
+  type,
+  classArchive,
+  building,
+  room,
+  rollopack,
+  cabinet,
+  insertCatalog,
+  insertCondition,
+  insertType,
+  insertClassArchive,
+  insertBuilding,
+  insertRoom,
+  insertRollOPack,
+  insertCabinet,
+  deleteCatalog,
+  deleteCondition,
+  deleteType,
+  deleteClassArchive,
+  deleteBuilding,
+  deleteRoom,
+  deleteRollOPack,
+  deleteCabinet,
+  updateCatalog,
+  updateCondition,
+  updateType,
+  updateClassArchive,
+  updateBuilding,
+  updateRoom,
+  updateRollOPack,
+  updateCabinet,
 };

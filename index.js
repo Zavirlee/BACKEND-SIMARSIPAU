@@ -24,6 +24,16 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:9000",
+    "http://10.35.41.113:3000",
+    "http://10.35.41.113:9000"
+  ],
+};
+
+app.use(cors(corsOptions));
 app.use("/", routes);
 
 app.get("/", async (req, res) => {
